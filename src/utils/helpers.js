@@ -108,6 +108,6 @@ export function matchesSearch(skill, query) {
     skill.title.toLowerCase().includes(q) ||
     skill.description.toLowerCase().includes(q) ||
     skill.author.toLowerCase().includes(q) ||
-    skill.tags.some(t => t.toLowerCase().includes(q))
+    skill.tags?.some(t => t.toLowerCase().includes(q))
   )
 }
