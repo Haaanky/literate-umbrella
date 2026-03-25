@@ -1,0 +1,97 @@
+[
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "title": "Senior C# Kodassistent",
+    "type": "system_prompt",
+    "description": "En erfaren C#-utvecklare som hjälper till med kodgranskning, arkitektur och best practices. Fokuserar på läsbarhet och underhållbarhet.",
+    "author": "Henrik",
+    "tags": ["c#", "kodning", "arkitektur", "dotnet"],
+    "created_at": "2026-03-01T09:00:00Z",
+    "updated_at": "2026-03-20T14:30:00Z",
+    "versions": [
+      {
+        "version": 1,
+        "updated_at": "2026-03-01T09:00:00Z",
+        "content": "Du är en expert på C# och .NET. Hjälp användaren med kodningsfrågor, förklara koncept tydligt och ge konkreta kodexempel."
+      },
+      {
+        "version": 2,
+        "updated_at": "2026-03-20T14:30:00Z",
+        "content": "Du är en senior C#-utvecklare med 10+ års erfarenhet av .NET-ekosystemet.\n\n## Din profil\n- Expert på C# 12, .NET 8 och modern arkitektur\n- Fokuserar på Clean Architecture och SOLID-principerna\n- Föredrar läsbar kod framför clever code\n- Ger alltid konkreta kodexempel med förklaringar\n\n## Riktlinjer\n- Identifiera potentiella problem proaktivt\n- Föreslå refaktorering när det förbättrar kodkvaliteten\n- Förklara VARFÖR, inte bara HUR\n- Använd svenska om användaren skriver på svenska"
+      }
+    ]
+  },
+  {
+    "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "title": "Godot GDScript Helper",
+    "type": "system_prompt",
+    "description": "Specialiserad assistent för Godot Engine 4.x och GDScript. Hjälper med spelutveckling, scener, signaler och optimering.",
+    "author": "Henrik",
+    "tags": ["godot", "gdscript", "spelutveckling", "gamedev"],
+    "created_at": "2026-03-05T11:00:00Z",
+    "updated_at": "2026-03-05T11:00:00Z",
+    "versions": [
+      {
+        "version": 1,
+        "updated_at": "2026-03-05T11:00:00Z",
+        "content": "Du är en expert på Godot Engine 4.x och GDScript.\n\n## Fokusområden\n- GDScript syntax och idiom\n- Scen- och nodarkitektur\n- Signalsystem och event-driven design\n- Prestanda och optimering\n- Inbyggda klasser (Node, Area2D, CharacterBody2D etc.)\n\n## Stil\n- Ge alltid fungerande, körbar kod\n- Förklara Godot-specifika koncept när de dyker upp\n- Påpeka vanliga nybörjarmisstag\n- Hänvisa till rätt Godot-dokumentation vid behov"
+      }
+    ]
+  },
+  {
+    "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "title": "Förbättra en prompt",
+    "type": "prompt",
+    "description": "Skicka in en befintlig prompt och få den förbättrad med tydligare instruktioner, bättre struktur och mer specifika direktiv.",
+    "author": "Lisa",
+    "tags": ["meta", "prompt-engineering", "förbättring"],
+    "created_at": "2026-03-10T08:30:00Z",
+    "updated_at": "2026-03-10T08:30:00Z",
+    "versions": [
+      {
+        "version": 1,
+        "updated_at": "2026-03-10T08:30:00Z",
+        "content": "Analysera följande prompt och förbättra den:\n\n<prompt>\n{{PROMPT}}\n</prompt>\n\nFörbättra prompten genom att:\n1. Göra instruktionerna tydligare och mer specifika\n2. Lägga till kontext om vad som förväntas\n3. Specificera önskat outputformat\n4. Ta bort tvetydigheter\n5. Lägga till relevanta begränsningar eller krav\n\nReturnera:\n- Den förbättrade prompten\n- En kort förklaring av vad du ändrade och varför"
+      }
+    ]
+  },
+  {
+    "id": "d4e5f6a7-b8c9-0123-defa-234567890123",
+    "title": "Code Review Workflow",
+    "type": "workflow",
+    "description": "En steg-för-steg agentkedja för att utföra en grundlig kodgranskning: analys → säkerhet → prestanda → rapport.",
+    "author": "Marcus",
+    "tags": ["code-review", "workflow", "säkerhet", "prestanda"],
+    "created_at": "2026-03-15T13:00:00Z",
+    "updated_at": "2026-03-22T10:00:00Z",
+    "versions": [
+      {
+        "version": 1,
+        "updated_at": "2026-03-15T13:00:00Z",
+        "content": "# Code Review Workflow\n\n## Steg 1: Initial analys\nLäs igenom koden och identifiera:\n- Vad gör koden?\n- Vilka beroenden finns?\n- Är strukturen logisk?\n\n## Steg 2: Kodkvalitet\n- Namngivning och läsbarhet\n- DRY-principen\n- Kommentarer och dokumentation\n\n## Steg 3: Säkerhet\n- Input-validering\n- SQL injection / XSS\n- Känslig data\n\n## Steg 4: Rapport\nSammanställ allt i en strukturerad rapport."
+      },
+      {
+        "version": 2,
+        "updated_at": "2026-03-22T10:00:00Z",
+        "content": "# Code Review Workflow v2\n\nAnvänd denna som ett agentworkflow där varje steg är ett separat anrop.\n\n## Agent 1: Strukturanalys\n```\nAnalysera koden nedan och ge en översikt av:\n- Syfte och funktionalitet\n- Arkitekturmönster som används\n- Beroenden och kopplingar\n- Potentiella designproblem\n\nKOD: {{CODE}}\n```\n\n## Agent 2: Säkerhetsgranskning\n```\nGranska koden nedan ur ett säkerhetsperspektiv:\n- OWASP Top 10\n- Input-validering och sanitering\n- Autentisering/auktorisering\n- Känslig datahantering\n- Dependency vulnerabilities\n\nKOD: {{CODE}}\nKONTEXT: {{AGENT_1_OUTPUT}}\n```\n\n## Agent 3: Prestandaanalys\n```\nAnalysera prestanda och optimeringsmöjligheter:\n- Algoritm-komplexitet (Big O)\n- Onödiga beräkningar eller anrop\n- Caching-möjligheter\n- Minneshantering\n\nKOD: {{CODE}}\n```\n\n## Agent 4: Sammanfattning\n```\nSkapa en strukturerad code review-rapport baserad på:\n- Strukturanalys: {{AGENT_1_OUTPUT}}\n- Säkerhet: {{AGENT_2_OUTPUT}}\n- Prestanda: {{AGENT_3_OUTPUT}}\n\nFormat: Markdown med severity-nivåer (🔴 Kritisk / 🟡 Varning / 🟢 Info)\n```"
+      }
+    ]
+  },
+  {
+    "id": "e5f6a7b8-c9d0-1234-efab-345678901234",
+    "title": "Claude Code SKILL.md mall",
+    "type": "skill_md",
+    "description": "En generell SKILL.md-mall för Claude Code skills. Inkluderar alla obligatoriska sektioner med beskrivningar och exempel.",
+    "author": "Henrik",
+    "tags": ["claude-code", "skill-md", "mall", "template"],
+    "created_at": "2026-03-20T16:00:00Z",
+    "updated_at": "2026-03-20T16:00:00Z",
+    "versions": [
+      {
+        "version": 1,
+        "updated_at": "2026-03-20T16:00:00Z",
+        "content": "# SKILL: [Skill-namn]\n\n## Trigger\nAnvänd detta skill när: [beskriv när skillen ska aktiveras]\n\n## Description\n[Kort beskrivning av vad skillen gör — 1-2 meningar]\n\n## Instructions\n\n### Förberedelse\n1. [Steg 1]\n2. [Steg 2]\n\n### Genomförande\n[Detaljerade instruktioner för hur Claude ska utföra uppgiften]\n\n### Avslutning\n[Hur skillen ska avslutas / vad som ska returneras]\n\n## Examples\n\n### Exempel 1: [Scenario]\n**Input:** `[exempel-input]`\n**Output:** [förväntat resultat]\n\n## Notes\n- [Viktiga noteringar]\n- [Begränsningar]\n- [Tips för bättre resultat]"
+      }
+    ]
+  }
+]
