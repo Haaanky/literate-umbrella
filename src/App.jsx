@@ -19,6 +19,12 @@ function storePat(pat) {
   } catch {}
 }
 
+// ─── Dark mode storage ─────────────────────────────────────────────────────
+function loadDark() {
+  try { return localStorage.getItem('ai-skills-hub:dark') === 'true' }
+  catch { return false }
+}
+
 // ─── Toast helpers ─────────────────────────────────────────────────────────
 let _toastId = 0
 function makeToast(message, type = '') {
@@ -40,11 +46,21 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false)
   const [pat, setPat] = useState(loadPat)
   const [toasts, setToasts] = useState([])
+  const [darkMode, setDarkMode] = useState(loadDark)
 
-  // Search/filter state
+  function toggleDark() {
+    setDarkMode(d => {
+      const next = !d
+      try { localStorage.setItem('ai-skills-hub:dark', String(next)) } catch {}
+      return next
+    })
+  }
+
+  // Search/filter/sort state
   const [query, setQuery] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
   const [tagFilter, setTagFilter] = useState('')
+  const [sort, setSort] = useState('updated_desc')
 
   // ─── Load skills ─────────────────────────────────────────────────────────
   const loadData = useCallback(async () => {
@@ -115,6 +131,38 @@ export default function App() {
     setView(selectedSkill ? 'detail' : 'list')
   }
 
+  // ─── Duplicate skill ─────────────────────────────────────────────────────
+  function handleDuplicateSkill(skill) {
+    if (!pat) { setShowSettings(true); return }
+    const copy = {
+      ...skill,
+      id: undefined, // will be generated in form
+      title: `Kopia av ${skill.title}`,
+    }
+    setEditingSkill(copy)
+    setSelectedSkill(null)
+    setView('form')
+  }
+
+  // ─── Delete skill ─────────────────────────────────────────────────────────
+  async function handleDeleteSkill(skill) {
+    setSaving(true)
+    try {
+      const { skills: freshSkills, sha: freshSha } = await fetchSkills(pat)
+      const newSkills = freshSkills.filter(s => s.id !== skill.id)
+      const newSha = await saveSkills(newSkills, pat, freshSha, `Delete skill: ${skill.title}`)
+      setSkills(newSkills)
+      setSha(newSha)
+      addToast(`"${skill.title}" raderades.`, 'success')
+      setSelectedSkill(null)
+      setView('list')
+    } catch (err) {
+      addToast(err.message, 'error')
+    } finally {
+      setSaving(false)
+    }
+  }
+
   // ─── Save skill ──────────────────────────────────────────────────────────
   async function handleSaveSkill(updatedSkill) {
     setSaving(true)
@@ -155,8 +203,8 @@ export default function App() {
 
   // ─── Render ──────────────────────────────────────────────────────────────
   return (
-    <div className="app">
-      <Header pat={pat} onAddSkill={handleAddSkill} onOpenSettings={() => setShowSettings(true)} />
+    <div className={`app${darkMode ? ' dark' : ''}`}>
+      <Header pat={pat} onAddSkill={handleAddSkill} onOpenSettings={() => setShowSettings(true)} darkMode={darkMode} onToggleDark={toggleDark} />
 
       <main className="main">
         {loading && (
@@ -186,6 +234,7 @@ export default function App() {
             query={query} setQuery={setQuery}
             typeFilter={typeFilter} setTypeFilter={setTypeFilter}
             tagFilter={tagFilter} setTagFilter={setTagFilter}
+            sort={sort} setSort={setSort}
           />
         )}
       </main>
@@ -197,6 +246,8 @@ export default function App() {
           pat={pat}
           onClose={handleCloseDetail}
           onEdit={handleEditSkill}
+          onDelete={handleDeleteSkill}
+          onDuplicate={handleDuplicateSkill}
         />
       )}
 

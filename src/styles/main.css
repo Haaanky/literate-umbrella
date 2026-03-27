@@ -34,6 +34,34 @@
   --workflow-bg: #fce7f3; --workflow-text: #be185d; --workflow-border: #f9a8d4;
 }
 
+/* ===== Dark Mode ===== */
+.dark {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-2: #273548;
+  --border: #334155;
+  --border-focus: #818cf8;
+  --text: #f1f5f9;
+  --text-2: #94a3b8;
+  --text-3: #64748b;
+  --accent: #818cf8;
+  --accent-hover: #6366f1;
+  --accent-light: #1e1b4b;
+  --danger: #f87171;
+  --danger-light: #2d1515;
+  --success: #4ade80;
+  --success-light: #052e16;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+  --shadow: 0 1px 3px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.3);
+  --shadow-md: 0 4px 6px rgba(0,0,0,.4), 0 2px 4px rgba(0,0,0,.3);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,.5), 0 4px 6px rgba(0,0,0,.3);
+
+  --prompt-bg: #052e16; --prompt-text: #4ade80; --prompt-border: #166534;
+  --system-prompt-bg: #2d1a00; --system-prompt-text: #fbbf24; --system-prompt-border: #92400e;
+  --skill-md-bg: #1e1b4b; --skill-md-text: #a5b4fc; --skill-md-border: #3730a3;
+  --workflow-bg: #2d0a1e; --workflow-text: #f9a8d4; --workflow-border: #9d174d;
+}
+
 html { font-size: 16px; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.5; }
 
