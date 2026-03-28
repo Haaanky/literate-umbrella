@@ -1,9 +1,17 @@
 import { ALL_TYPES, TYPE_LABELS } from '../config.js'
 
+export const SORT_OPTIONS = [
+  { value: 'updated_desc', label: 'Nyast uppdaterad' },
+  { value: 'created_desc', label: 'Nyast tillagd' },
+  { value: 'created_asc', label: 'Äldst tillagd' },
+  { value: 'az', label: 'A–Ö' },
+]
+
 export default function SearchFilter({
   query, setQuery,
   typeFilter, setTypeFilter,
   tagFilter, setTagFilter,
+  sort, setSort,
   allTags,
   totalCount, filteredCount,
 }) {
@@ -29,6 +37,16 @@ export default function SearchFilter({
           <option value="">Alla typer</option>
           {ALL_TYPES.map(t => (
             <option key={t} value={t}>{TYPE_LABELS[t]}</option>
+          ))}
+        </select>
+
+        <select
+          className="filter-select"
+          value={sort}
+          onChange={e => setSort(e.target.value)}
+        >
+          {SORT_OPTIONS.map(o => (
+            <option key={o.value} value={o.value}>{o.label}</option>
           ))}
         </select>
       </div>

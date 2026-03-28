@@ -1,4 +1,4 @@
-export default function Header({ pat, onAddSkill, onOpenSettings }) {
+export default function Header({ pat, onAddSkill, onOpenSettings, darkMode, onToggleDark }) {
   return (
     <header className="header">
       <div className="header-inner">
@@ -17,6 +17,10 @@ export default function Header({ pat, onAddSkill, onOpenSettings }) {
             <span className={`pat-status ${pat ? 'set' : 'unset'}`}>
               {pat ? '🔑 PAT aktiv' : '🔒 Sätt PAT'}
             </span>
+          </button>
+
+          <button className="btn btn-ghost btn-icon" onClick={onToggleDark} title={darkMode ? 'Ljust läge' : 'Mörkt läge'}>
+            {darkMode ? '☀️' : '🌙'}
           </button>
 
           <button className="btn btn-ghost btn-icon" onClick={onOpenSettings} title="Inställningar">

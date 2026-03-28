@@ -25,7 +25,7 @@ function formFromSkill(skill) {
 }
 
 export default function SkillForm({ skill, onSave, onClose, saving }) {
-  const isEdit = Boolean(skill)
+  const isEdit = Boolean(skill?.id)
   const [form, setForm] = useState(isEdit ? formFromSkill(skill) : EMPTY_FORM)
   const [error, setError] = useState(null)
 

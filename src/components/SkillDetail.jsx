@@ -2,11 +2,12 @@ import { useState } from 'react'
 import TypeBadge from './TypeBadge.jsx'
 import { formatDate, formatDateTime, copyToClipboard, downloadFile, slugify } from '../utils/helpers.js'
 
-export default function SkillDetail({ skill, pat, onClose, onEdit }) {
+export default function SkillDetail({ skill, pat, onClose, onEdit, onDelete, onDuplicate }) {
   const sortedVersions = [...(skill.versions ?? [])].sort((a, b) => b.version - a.version)
   const latestVersion = sortedVersions[0]
   const [activeVersion, setActiveVersion] = useState(latestVersion)
   const [copied, setCopied] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   async function handleCopy() {
     await copyToClipboard(activeVersion.content)
@@ -98,12 +99,31 @@ export default function SkillDetail({ skill, pat, onClose, onEdit }) {
         </div>
 
         <div className="modal-footer">
-          {pat && (
-            <button className="btn btn-secondary" onClick={() => onEdit(skill)}>
-              ✏️ Redigera
-            </button>
+          {pat && !confirmDelete && (
+            <>
+              <button className="btn btn-danger btn-sm" style={{ marginRight: 'auto' }} onClick={() => setConfirmDelete(true)}>
+                🗑 Radera
+              </button>
+              <button className="btn btn-secondary" onClick={() => onDuplicate(skill)}>
+                📋 Duplicera
+              </button>
+              <button className="btn btn-secondary" onClick={() => onEdit(skill)}>
+                ✏️ Redigera
+              </button>
+            </>
           )}
-          <button className="btn btn-primary" onClick={onClose}>Stäng</button>
+          {pat && confirmDelete && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '.75rem', flex: 1, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '.875rem', color: 'var(--danger)', flex: 1 }}>
+                Är du säker på att du vill radera <strong>{skill.title}</strong>?
+              </span>
+              <button className="btn btn-secondary btn-sm" onClick={() => setConfirmDelete(false)}>Avbryt</button>
+              <button className="btn btn-danger btn-sm" onClick={() => onDelete(skill)}>Ja, radera</button>
+            </div>
+          )}
+          {!confirmDelete && (
+            <button className="btn btn-primary" onClick={onClose}>Stäng</button>
+          )}
         </div>
       </div>
     </div>

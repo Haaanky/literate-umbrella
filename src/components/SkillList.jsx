@@ -3,11 +3,21 @@ import SearchFilter from './SearchFilter.jsx'
 import { matchesSearch } from '../utils/helpers.js'
 import { useMemo } from 'react'
 
+function applySorting(skills, sort) {
+  const arr = [...skills]
+  if (sort === 'updated_desc') return arr.sort((a, b) => (b.updated_at ?? '') > (a.updated_at ?? '') ? 1 : -1)
+  if (sort === 'created_desc') return arr.sort((a, b) => (b.created_at ?? '') > (a.created_at ?? '') ? 1 : -1)
+  if (sort === 'created_asc') return arr.sort((a, b) => (a.created_at ?? '') > (b.created_at ?? '') ? 1 : -1)
+  if (sort === 'az') return arr.sort((a, b) => a.title.localeCompare(b.title, 'sv'))
+  return arr
+}
+
 export default function SkillList({
   skills, onSelectSkill, onAddSkill,
   query, setQuery,
   typeFilter, setTypeFilter,
   tagFilter, setTagFilter,
+  sort, setSort,
 }) {
   const allTags = useMemo(() => {
     const tagSet = new Set()
@@ -16,13 +26,14 @@ export default function SkillList({
   }, [skills])
 
   const filtered = useMemo(() => {
-    return skills.filter(s => {
+    const base = skills.filter(s => {
       if (typeFilter && s.type !== typeFilter) return false
       if (tagFilter && !s.tags?.includes(tagFilter)) return false
       if (!matchesSearch(s, query)) return false
       return true
     })
-  }, [skills, query, typeFilter, tagFilter])
+    return applySorting(base, sort)
+  }, [skills, query, typeFilter, tagFilter, sort])
 
   return (
     <div>
@@ -30,6 +41,7 @@ export default function SkillList({
         query={query} setQuery={setQuery}
         typeFilter={typeFilter} setTypeFilter={setTypeFilter}
         tagFilter={tagFilter} setTagFilter={setTagFilter}
+        sort={sort} setSort={setSort}
         allTags={allTags}
         totalCount={skills.length}
         filteredCount={filtered.length}
