@@ -5,7 +5,12 @@
     "type": "system_prompt",
     "description": "En erfaren C#-utvecklare som hjälper till med kodgranskning, arkitektur och best practices. Fokuserar på läsbarhet och underhållbarhet.",
     "author": "Henrik",
-    "tags": ["c#", "kodning", "arkitektur", "dotnet"],
+    "tags": [
+      "c#",
+      "kodning",
+      "arkitektur",
+      "dotnet"
+    ],
     "created_at": "2026-03-01T09:00:00Z",
     "updated_at": "2026-03-20T14:30:00Z",
     "versions": [
@@ -27,7 +32,12 @@
     "type": "system_prompt",
     "description": "Specialiserad assistent för Godot Engine 4.x och GDScript. Hjälper med spelutveckling, scener, signaler och optimering.",
     "author": "Henrik",
-    "tags": ["godot", "gdscript", "spelutveckling", "gamedev"],
+    "tags": [
+      "godot",
+      "gdscript",
+      "spelutveckling",
+      "gamedev"
+    ],
     "created_at": "2026-03-05T11:00:00Z",
     "updated_at": "2026-03-05T11:00:00Z",
     "versions": [
@@ -44,7 +54,11 @@
     "type": "prompt",
     "description": "Skicka in en befintlig prompt och få den förbättrad med tydligare instruktioner, bättre struktur och mer specifika direktiv.",
     "author": "Lisa",
-    "tags": ["meta", "prompt-engineering", "förbättring"],
+    "tags": [
+      "meta",
+      "prompt-engineering",
+      "förbättring"
+    ],
     "created_at": "2026-03-10T08:30:00Z",
     "updated_at": "2026-03-10T08:30:00Z",
     "versions": [
@@ -61,7 +75,12 @@
     "type": "workflow",
     "description": "En steg-för-steg agentkedja för att utföra en grundlig kodgranskning: analys → säkerhet → prestanda → rapport.",
     "author": "Marcus",
-    "tags": ["code-review", "workflow", "säkerhet", "prestanda"],
+    "tags": [
+      "code-review",
+      "workflow",
+      "säkerhet",
+      "prestanda"
+    ],
     "created_at": "2026-03-15T13:00:00Z",
     "updated_at": "2026-03-22T10:00:00Z",
     "versions": [
@@ -83,7 +102,12 @@
     "type": "skill_md",
     "description": "En generell SKILL.md-mall för Claude Code skills. Inkluderar alla obligatoriska sektioner med beskrivningar och exempel.",
     "author": "Henrik",
-    "tags": ["claude-code", "skill-md", "mall", "template"],
+    "tags": [
+      "claude-code",
+      "skill-md",
+      "mall",
+      "template"
+    ],
     "created_at": "2026-03-20T16:00:00Z",
     "updated_at": "2026-03-20T16:00:00Z",
     "versions": [
@@ -91,6 +115,27 @@
         "version": 1,
         "updated_at": "2026-03-20T16:00:00Z",
         "content": "# SKILL: [Skill-namn]\n\n## Trigger\nAnvänd detta skill när: [beskriv när skillen ska aktiveras]\n\n## Description\n[Kort beskrivning av vad skillen gör — 1-2 meningar]\n\n## Instructions\n\n### Förberedelse\n1. [Steg 1]\n2. [Steg 2]\n\n### Genomförande\n[Detaljerade instruktioner för hur Claude ska utföra uppgiften]\n\n### Avslutning\n[Hur skillen ska avslutas / vad som ska returneras]\n\n## Examples\n\n### Exempel 1: [Scenario]\n**Input:** `[exempel-input]`\n**Output:** [förväntat resultat]\n\n## Notes\n- [Viktiga noteringar]\n- [Begränsningar]\n- [Tips för bättre resultat]"
+      }
+    ]
+  },
+  {
+    "id": "a56dfebf-f52b-4e6f-8336-5992f4f07279",
+    "title": "Token usage",
+    "type": "skill_md",
+    "description": "Beräknar användnings tokens",
+    "author": "Hanky",
+    "tags": [
+      "token",
+      "usage",
+      "improvements"
+    ],
+    "created_at": "2026-03-29T20:21:27.303Z",
+    "updated_at": "2026-03-29T20:21:27.303Z",
+    "versions": [
+      {
+        "version": 1,
+        "updated_at": "2026-03-29T20:21:27.303Z",
+        "content": "-----\n\n## name: token-analyst\ndescription: >\nAnalysera dagens Claude-konversationer och logga token-förbrukning i en daglig .md-fil.\nVarje fredag körs även en veckoanalys med förbättringsförslag.\nTrigga detta skill när användaren ber om “token-analys”, “dagens användning”, “token-rapport”,\n“analysera mina sessioner”, “spara dagens logg”, “hur har jag använt Claude idag”,\neller liknande formuleringar. Trigga också automatiskt varje fredag om användaren\nstartar en session med en hälsning eller enkel öppningsmening — kontrollera då om\nveckans fredag-rapport ska köras. Använd ALDRIG detta skill för frågor om enstaka\nkonversationens innehåll utan ett explicit logg-/analysuppdrag.\n\n# Token Analyst\n\nAnalyserar Henrik’s dagliga Claude-användning och skapar markdown-loggar.\nFredag: gör en veckoanalys med konkreta förbättringsförslag.\n\n## Viktiga begränsningar — läs detta först\n\n`recent_chats`-verktyget returnerar **summaries och metadata**, inte faktiska token-räkningar.\nClaude.ai exponerar inte exakta input/output-tokens via det här gränssnittet.\n\nVad du KAN göra:\n\n- Räkna antal sessioner per dag\n- Se sessionstitlar och ämnen\n- Uppskatta relativ komplexitet baserat på summary-längd och ämnestyp\n- Identifiera mönster (vilka typer av uppgifter, hur många sessioner, ämnesbredd)\n- Ge kvalitativa insikter om vad som verkar vara token-tungt vs. lätt\n\nVad du INTE får göra:\n\n- Hitta på exakta token-siffror\n- Påstå att du har access till faktisk token-data du inte har\n- Uppskatta kostnader utan att tydligt markera att det är grova estimat\n\n**Var alltid transparent om vad som är faktisk data vs. uppskattning.**\n\n-----\n\n## Flöde: Daglig analys\n\n### Steg 1 — Hämta dagens sessioner\n\nAnvänd `recent_chats`-verktyget med parametrar för att filtrera till dagens datum:\n\n```\nrecent_chats(\n  n=20,\n  after=\"[TODAY]T00:00:00Z\",\n  before=\"[TODAY]T23:59:59Z\",\n  sort_order=\"asc\"\n)\n```\n\nErsätt `[TODAY]` med faktiskt datum i ISO-format (t.ex. `2026-03-29`).\n\nOm inga sessioner hittas för exakt idag, rapportera det tydligt och avsluta.\n\n### Steg 2 — Extrahera och klassificera\n\nFör varje session, extrahera:\n\n- **Titel** (från `Title:` i summary)\n- **Uppdaterad** (timestamp → konvertera till lokal tid om möjligt)\n- **Ämnesdomän** — klassificera i en av dessa:\n  - `kod/arkitektur` — implementering, design, agenter, CI/CD\n  - `research/utforskning` — läsa docs, jämföra alternativ\n  - `skrivande/formulering` — mail, dokument, prompts\n  - `felsökning` — debugging, felmeddelanden\n  - `planering` — spec, roadmap, prioritering\n  - `övrigt` — blandat eller oklart\n- **Uppskattad komplexitet**: `låg / medel / hög`\n  - Låg: enkel fråga, kort svar, tydlig summary < 100 ord\n  - Medel: tydlig uppgift med flera steg, summary 100–300 ord\n  - Hög: multi-steg, filer skapades, lång summary > 300 ord eller multi-skill\n- **Flaggor** (om applicerbara):\n  - `[SKILL]` — en eller flera skills triggades\n  - `[FILER]` — filer skapades/redigerades\n  - `[WEBSÖK]` — webbsökning användes\n  - `[KOD]` — kod genererades\n\n### Steg 3 — Sammanställ statistik\n\nBeräkna:\n\n- Totalt antal sessioner idag\n- Fördelning per ämnesdomän (antal + %)\n- Fördelning per komplexitetsnivå\n- Aktiva timmar (första → sista session-timestamp)\n- Flaggfrekvens\n\nToken-uppskattning (markera tydligt som UPPSKATTNING):\n\n```\nUppskattad relativ belastning (ej faktiska tokens):\n  Låg komplexitet  × antal  = X enhet\n  Medel komplexitet × antal = X enhet  (viktad ×2)\n  Hög komplexitet × antal  = X enhet  (viktad ×4)\n  ─────────────────────────────────────\n  Viktad total: XX enheter\n```\n\n### Steg 4 — Skriv daglig loggfil\n\nSkriv en `.md`-fil med följande namnformat:\n\n```\ntoken-log-YYYY-MM-DD.md\n```\n\nSpara till `/mnt/user-data/outputs/` och presentera med `present_files`.\n\n#### Mall för daglig logg\n\n```markdown\n# Token-analys: YYYY-MM-DD\n\n_Genererad: [timestamp]_\n_Data: Claude.ai recent_chats API — exakta tokens ej tillgängliga_\n\n## Sessionsöversikt\n\n| # | Titel | Domän | Komplexitet | Flaggor |\n|---|-------|-------|-------------|---------|\n| 1 | ... | ... | Hög | [SKILL][KOD] |\n| 2 | ... | ... | Medel | [FILER] |\n\n## Statistik\n\n- **Totalt sessioner:** X\n- **Aktiva timmar:** HH:MM – HH:MM (≈ X timmar)\n- **Domänfördelning:**\n  - kod/arkitektur: X sessioner (XX%)\n  - ...\n- **Komplexitetsfördelning:**\n  - Hög: X | Medel: X | Låg: X\n\n## Relativ belastningsuppskattning\n\n> ⚠️ Exakta tokens ej tillgängliga. Nedan är viktad uppskattning baserad på komplexitet.\n\nViktad total: XX enheter (skala: Låg=1, Medel=2, Hög=4)\n\n## Sessionsdetaljer\n\n### Session 1 — [Titel]\n- **Ämne:** ...\n- **Domän:** ...\n- **Komplexitet:** Hög\n- **Notering:** [kort sammanfattning av vad som gjordes]\n\n[upprepa per session]\n\n## Observationer\n\n[2–4 meningar om dagens mönster, vad som dominerade, eventuella ineffektiviteter]\n\n---\n_Nästa veckoanalys: fredag [datum]_\n```\n\n-----\n\n## Flöde: Fredag-veckoanalys\n\nKör detta **extra** om dagens datum är en fredag (kontrollera med `user_time_v0`).\n\n### Steg 1 — Samla veckans loggar\n\nHämta alla sessioner från de senaste 7 dagarna:\n\n```\nrecent_chats(\n  n=20,\n  after=\"[MÅNDAG]T00:00:00Z\",\n  sort_order=\"asc\"\n)\n```\n\nOm du körde dagliga loggar under veckan: läs dem från `/mnt/user-data/outputs/token-log-*.md`\nmed `bash_tool` (`ls` + `cat`). Kombinera med fresh `recent_chats`-data.\n\n### Steg 2 — Veckoanalys\n\nAggregera:\n\n- Totalt antal sessioner veckan\n- Domänfördelning för hela veckan\n- Vilka dagar var mest aktiva\n- Vilka typer av uppgifter dominerade\n- Genomsnittlig komplexitet per dag\n\n### Steg 3 — Förbättringsförslag\n\nBasera förbättringsförslag på faktiska mönster, inte generella tips. Exempel:\n\n**Om många hög-komplexitet sessioner inom samma domän:**\n→ Föreslå att skapa en dedikerad skill eller CLAUDE.md-mall för den domänen\n\n**Om många korta/låg-komplexitet sessioner:**\n→ Föreslå att batcha liknande uppgifter i en session\n\n**Om mycket webbsökning i research-sessioner:**\n→ Föreslå att förbereda kontext/research-frågor i förväg\n\n**Om återkommande felsöknings-sessioner:**\n→ Fråga om det finns systematiska rotorsaker att adressera\n\n**Om lite variation i domäner:**\n→ Peka på underutnyttjande av AI-stöd i specifika arbetsområden\n\n### Steg 4 — Skriv veckologg\n\nFil: `token-log-week-YYYY-WXX.md` (ISO-veckonummer)\n\nSamma struktur som daglig logg men med:\n\n- Daglig breakdown-tabell\n- Veckoaggregat\n- Minst 3 konkreta, Henrik-specifika förbättringsförslag\n- Jämförelse: har mönstret förändrats sedan förra veckan (om logg finns)?\n\n-----\n\n## Felhantering\n\n|Situation                        |Åtgärd                                               |\n|---------------------------------|-----------------------------------------------------|\n|Inga sessioner idag              |Rapportera tydligt, skapa inte tom logg              |\n|`recent_chats` returnerar fel    |Berätta vad som hände, ge inga fabricerade data      |\n|Oklart om det är fredag          |Kör bara daglig analys, skippa veckoanalys           |\n|Loggar från tidigare dagar saknas|Kör veckoanalys på `recent_chats`-data utan loggfiler|\n\n-----\n\n## Viktiga principer\n\n1. **Ingen fabricering** — om data saknas, säg det\n1. **Tydlig källmarkering** — skilja alltid på faktisk data och uppskattning\n1. **Specifika observationer** — generella råd är värdelösa, koppla alltid till Henriks faktiska sessions\n1. **Svenska** — all output på svenska om inget annat begärs\n1. **Spara alltid filen** — kör `present_files` i slutet"
       }
     ]
   }
